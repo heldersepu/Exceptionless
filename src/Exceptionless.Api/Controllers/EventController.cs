@@ -31,6 +31,7 @@ using Foundatio.Repositories.Models;
 using Foundatio.Storage;
 using Foundatio.Utility;
 using Newtonsoft.Json;
+using Swashbuckle.Swagger.Annotations;
 
 namespace Exceptionless.Api.Controllers {
     [RoutePrefix(API_PREFIX + "/events")]
@@ -163,6 +164,7 @@ namespace Exceptionless.Api.Controllers {
         [HttpGet]
         [Route("{id:objectid}", Name = "GetPersistentEventById")]
         [ResponseType(typeof(PersistentEvent))]
+        [SwaggerResponse(200, "Get by id 200", typeof(PersistentEvent))]
         public async Task<IHttpActionResult> GetByIdAsync(string id, string filter = null, string time = null, string offset = null) {
             var model = await GetModelAsync(id, false);
             if (model == null)
@@ -202,6 +204,7 @@ namespace Exceptionless.Api.Controllers {
         [HttpGet]
         [Route]
         [ResponseType(typeof(List<PersistentEvent>))]
+        [SwaggerResponse(200, "Get all 200", typeof(List<PersistentEvent>))]
         public async Task<IHttpActionResult> GetAsync(string filter = null, string sort = null, string time = null, string offset = null, string mode = null, int page = 1, int limit = 10) {
             var organizations = await GetSelectedOrganizationsAsync(_organizationRepository, _projectRepository, _stackRepository, filter);
             if (organizations.Count(o => !o.IsSuspended) == 0)
@@ -836,7 +839,7 @@ namespace Exceptionless.Api.Controllers {
         /// <code>
         ///     { "message": "Exceptionless is amazing!" }
         /// </code>
-        /// 
+        ///
         /// Simple log event with user identity:
         /// <code>
         ///     {
