@@ -16,8 +16,8 @@ namespace Exceptionless.Core.Extensions {
         }
 
         public static async Task RunStartupActionsAsync(this Container container) {
-            foreach (var startupAction in container.GetAllInstances<IStartupAction>())
-                await startupAction.RunAsync().AnyContext();
+            //foreach (var startupAction in container.GetAllInstances<IStartupAction>())
+            //    await startupAction.RunAsync().AnyContext();
         }
 
         public static void AddStartupAction<T>(this Container container) where T : IStartupAction {
